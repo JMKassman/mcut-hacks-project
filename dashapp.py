@@ -22,8 +22,8 @@ app.layout = html.Div(children=[
     		{'label': 'Friday', 'value': 5},
     		{'label': 'Saturday', 'value': 6}
     	],
-    	multi = True,
-    	value = 0
+    	placeholder = "Select day(s)",
+    	multi = True
     )
   ])
 
