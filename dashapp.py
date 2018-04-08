@@ -57,8 +57,13 @@ app.layout = html.Div(children=[
 def update_graph(location, days):
   if location in locations:
     # location exists, draw graph
-
-    pass
+    d = {}
+    for day in days:
+    	hour_data = []
+    	for i in range(24):
+    		hour_data.append(counts[location][day][i])
+    	d[day] = hour_data
+    df = pd.DataFrame(data=d)
   else:
     #location does not exist, tell user
     return html.P('Location Not Found')
