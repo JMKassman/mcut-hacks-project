@@ -5,7 +5,12 @@ import dash_html_components as html
 import requests
 
 weekly_data = requests.get("https://www.purdue.edu/drsfacilityusage/api/WeeklyTrends").json()
-
+locations = []
+for element in weekly_data:
+	if element['LocationName'] in locations:
+		continue
+	else:
+		locations.append(element['LocationName'])
 
 
 app = dash.Dash()
@@ -26,6 +31,8 @@ app.layout = html.Div(children=[
     	multi = True
     )
   ])
+
+
 
 if __name__ == "__main__":
   app.run_server(debug=True)
