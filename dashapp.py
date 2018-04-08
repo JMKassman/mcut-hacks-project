@@ -5,6 +5,8 @@ import dash_html_components as html
 import requests
 import pandas as pd
 
+int_to_day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
 weekly_data = requests.get("https://www.purdue.edu/drsfacilityusage/api/WeeklyTrends").json()
 locations = []
 for element in weekly_data:
@@ -59,11 +61,28 @@ def update_graph(location, days):
     # location exists, draw graph
     d = {}
     for day in days:
-    	hour_data = []
-    	for i in range(24):
-    		hour_data.append(counts[location][day][i])
-    	d[day] = hour_data
+      hour_data = []
+      for i in range(24):
+        hour_data.append(counts[location][day][i])
+      d[day] = hour_data
     df = pd.DataFrame(data=d)
+    data = []
+    for day in df:
+      data.append({
+        'x': df.index,
+        'y': df[day],
+        'type': 'line',
+        'name': int_to_day[day]
+      })
+    return dcc.Graph(
+      id='graph',
+      figure={
+        'data': data,
+        'layout': {
+          'title': location
+        }
+      }
+    )
   else:
     #location does not exist, tell user
     return html.P('Location Not Found')
