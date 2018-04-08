@@ -1,10 +1,17 @@
 import dash
+from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
+import requests
+
+weekly_data = requests.get("https://www.purdue.edu/drsfacilityusage/api/WeeklyTrends").json()
+
+
 
 app = dash.Dash()
 app.layout = html.Div(children=[
     html.H1(children='Corec Graph'),
+    dcc.Input(id='location_input', value='', type='text'),
     dcc.Dropdown (
     	options = [
     		{'label': 'Sunday', 'value': 0},
