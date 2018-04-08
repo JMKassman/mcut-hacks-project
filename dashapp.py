@@ -13,6 +13,18 @@ for element in weekly_data:
 	else:
 		locations.append(element['LocationName'])
 
+counts = {}
+for location in locations:
+	counts[location] = []
+	for i in range(7):
+		counts[location].append({})
+		for j in range(24):
+			counts[location][i][j] = 0
+
+for element in weekly_data:
+	counts[element['LocationName']][element['EntryDayOfWeek']][element['EntryHour']] = element['Count']
+
+print(counts)
 
 app = dash.Dash()
 app.layout = html.Div(children=[
@@ -47,6 +59,7 @@ app.layout = html.Div(children=[
 def update_graph(location, days):
   if location in locations:
     # location exists, draw graph
+
     pass
   else:
     #location does not exist, draw empty graph
@@ -54,4 +67,4 @@ def update_graph(location, days):
 
 
 if __name__ == "__main__":
-  app.run_server(debug=True)
+  app.run_server(debug=False)
