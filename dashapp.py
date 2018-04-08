@@ -33,14 +33,14 @@ app.layout = html.Div(children=[
     	multi = True
     ),
     html.Div(id='output-graph')
-    )
+    
   ])
 
 
 @app.callback(
   Output(component_id='output-graph', component_property='children'),
   [
-  Input(component_id='location-input', component_property='value')
+  Input(component_id='location-input', component_property='value'),
   Input(component_id='days', component_property='value')
   ]
 )
