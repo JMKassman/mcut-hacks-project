@@ -26,10 +26,21 @@ for location in locations:
 for element in weekly_data:
 	counts[element['LocationName']][element['EntryDayOfWeek']][element['EntryHour']] = element['Count']
 
+location_dicts = []
+for location in locations:
+	location_dicts.append({'label':location, 'value':location})
+
+print(location_dicts)
+
 app = dash.Dash()
 app.layout = html.Div(children=[
-    html.H1(children='Corec Graph'),
-    dcc.Input(id='location-input', value='', type='text'),
+    html.H1(children='Corec Graph', style={'text-align':'center'}),
+    dcc.Dropdown (
+    	id='location-input',
+    	options = location_dicts,
+    	placeholder = 'Select Location',
+    	multi = False
+    ),
     dcc.Dropdown (
     	id='days',
         options = [
@@ -41,11 +52,10 @@ app.layout = html.Div(children=[
     		{'label': 'Friday', 'value': 5},
     		{'label': 'Saturday', 'value': 6}
     	],
-    	placeholder = "Select day(s)",
+    	placeholder = "Select Day(s)",
     	multi = True
     ),
-    html.Div(id='output-graph')
-    
+    html.Div(id='output-graph')    
   ])
 
 
