@@ -24,8 +24,6 @@ for location in locations:
 for element in weekly_data:
 	counts[element['LocationName']][element['EntryDayOfWeek']][element['EntryHour']] = element['Count']
 
-print(counts)
-
 app = dash.Dash()
 app.layout = html.Div(children=[
     html.H1(children='Corec Graph'),
