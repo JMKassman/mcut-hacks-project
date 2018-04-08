@@ -62,8 +62,8 @@ def update_graph(location, days):
 
     pass
   else:
-    #location does not exist, draw empty graph
-    pass
+    #location does not exist, tell user
+    return html.P('Location Not Found')
 
 
 if __name__ == "__main__":
